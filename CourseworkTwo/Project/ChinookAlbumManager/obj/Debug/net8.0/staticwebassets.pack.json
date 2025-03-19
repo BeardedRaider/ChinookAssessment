@@ -1,0 +1,41 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Users\\Gamer\\Desktop\\ChinookAssessment\\CourseworkTwo\\Project\\ChinookAlbumManager\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\ChinookAlbumManager.bundle.scp.css",
+      "PackagePath": "staticwebassets\\ChinookAlbumManager.bundle.scp.css"
+    },
+    {
+      "Id": "C:\\Users\\Gamer\\Desktop\\ChinookAssessment\\CourseworkTwo\\Project\\ChinookAlbumManager\\wwwroot\\app.css",
+      "PackagePath": "staticwebassets\\app.css"
+    },
+    {
+      "Id": "C:\\Users\\Gamer\\Desktop\\ChinookAssessment\\CourseworkTwo\\Project\\ChinookAlbumManager\\wwwroot\\bootstrap\\bootstrap.min.css",
+      "PackagePath": "staticwebassets\\bootstrap\\bootstrap.min.css"
+    },
+    {
+      "Id": "C:\\Users\\Gamer\\Desktop\\ChinookAssessment\\CourseworkTwo\\Project\\ChinookAlbumManager\\wwwroot\\bootstrap\\bootstrap.min.css.map",
+      "PackagePath": "staticwebassets\\bootstrap\\bootstrap.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\Gamer\\Desktop\\ChinookAssessment\\CourseworkTwo\\Project\\ChinookAlbumManager\\wwwroot\\favicon.png",
+      "PackagePath": "staticwebassets\\favicon.png"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.ChinookAlbumManager.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.ChinookAlbumManager.props",
+      "PackagePath": "build\\ChinookAlbumManager.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.ChinookAlbumManager.props",
+      "PackagePath": "buildMultiTargeting\\ChinookAlbumManager.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.ChinookAlbumManager.props",
+      "PackagePath": "buildTransitive\\ChinookAlbumManager.props"
+    }
+  ],
+  "ElementsToRemove": []
+}
