@@ -1,0 +1,40 @@
+@page "/albums"
+@using AlbumDetails;
+@using Microsoft.EntityFrameworkCore;
+@inject ChinookContext ChinookContext
+
+<h3>ChinookAlbumManager</h3>
+
+<ul>
+    @if (albums != null && albums.Any())
+    {
+        @foreach (var album in albums)
+        {
+            <li>@album.Title (@album.ArtistId)</li>
+        }
+    }
+    else
+    {
+        <li>No albums found.</li>
+    }
+</ul>
+
+@code {
+    private List<Album>? albums;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            albums = await ChinookContext.Albums!.ToListAsync();
+            if (albums == null || !albums.Any())
+            {
+                Console.WriteLine("No albums found.");
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error retrieving albums: {ex.Message}");
+        }
+    }
+}

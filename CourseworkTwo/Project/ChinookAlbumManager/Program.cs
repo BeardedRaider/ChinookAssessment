@@ -1,10 +1,18 @@
 using ChinookAlbumManager.Components;
+using Microsoft.EntityFrameworkCore;
+using AlbumDetails;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
+
+    // Register the DbContext with the dependency injection container
+    builder.Services.AddDbContext<ChinookContext>(options =>
+    {
+    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"));
+});
 
 var app = builder.Build();
 
