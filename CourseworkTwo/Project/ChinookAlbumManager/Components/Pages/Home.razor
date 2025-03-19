@@ -21,7 +21,7 @@
         {
             <tr>
                 <td>@album.Title</td>
-                <td>@album.ArtistId</td>
+                <td>@album.Artist.Name</td><!-- display the artist name -->
                 <td>&nbsp;</td>
             </tr>
         }
@@ -32,6 +32,7 @@
     private List<Album>? albums;
         protected override async Task OnInitializedAsync()
     {
-        albums = await ChinookContext.Albums!.ToListAsync();
-    }
+        albums = await ChinookContext.Albums
+            .Include(a => a.Artist) // Include related Artist entity
+            .ToListAsync();    }
 }
