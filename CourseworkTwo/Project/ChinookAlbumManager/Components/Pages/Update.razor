@@ -74,24 +74,44 @@
     {
         if (album != null)
         {
-            // Update the album details
-            album.Tracks = tracks; // Update tracks
-            ChinookContext.Albums!.Update(album);
+            // Update album details
+            ChinookContext.Albums.Update(album);
+
+            // Persist changes for tracks
+            foreach (var track in tracks)
+            {
+                if (track.TrackId == 0) // New tracks
+                {
+                    track.AlbumId = album.AlbumId; // Ensure AlbumId is set
+                    ChinookContext.Tracks.Add(track); // Add new track
+                }
+                else
+                {
+                    // Update existing tracks
+                    ChinookContext.Tracks.Update(track);
+                }
+            }
 
             // Save changes to the database
             await ChinookContext.SaveChangesAsync();
+
             NavigationManager.NavigateTo("/");
         }
     }
 
     private void AddTrack()
     {
-        tracks.Add(new Track { Name = "New Track", AlbumId = AlbumId });
+        var newTrack = new Track { Name = "", AlbumId = AlbumId };
+        tracks.Add(newTrack);
     }
 
     private void RemoveTrack(Track track)
     {
         tracks.Remove(track);
+        if (track.TrackId != 0)
+        {
+            ChinookContext.Tracks.Remove(track);
+        }
     }
 
     private void NavigateBack()
