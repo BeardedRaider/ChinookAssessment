@@ -7,40 +7,95 @@
 <h3>Update Album</h3>
 
 <EditForm Model="@album" OnValidSubmit="@HandleValidSubmit">
-    <div>
-        <label for="Title">Title</label>
-        <InputText id="Title" @bind-Value="@album!.Title" />
+    <!-- Album Title -->
+    <div class="mb-3">
+        <label for="Title" class="form-label">Title</label>
+        <InputText id="Title" class="form-control" @bind-Value="@album!.Title" />
     </div>
-    <div>
-        <label for="ArtistId">Artist</label>
-        <InputSelect id="ArtistId" @bind-Value="@album!.ArtistId">
+
+    <!-- Artist Selection -->
+    <div class="mb-3">
+        <label for="ArtistId" class="form-label">Artist</label>
+        <InputSelect id="ArtistId" class="form-select" @bind-Value="@album!.ArtistId">
             @foreach (var artist in artists)
             {
                 <option value="@artist.ArtistId">@artist.Name</option>
             }
         </InputSelect>
     </div>
-    <button type="submit" class="btn btn-primary">Update</button>
+
+    <!-- Track List -->
+    <h4>Tracks</h4>
+    <ul>
+        @if (tracks != null)
+        {
+            @foreach (var track in tracks)
+            {
+                <li class="mb-2">
+                    <input class="form-control d-inline w-75" @bind="track.Name" placeholder="Track Name" />
+                    <button type="button" class="btn btn-danger ms-2" @onclick="() => RemoveTrack(track)">Remove</button>
+                </li>
+            }
+        }
+    </ul>
+    <button type="button" class="btn btn-secondary mt-2" @onclick="AddTrack">Add Track</button>
+
+    <!-- Submit Button -->
+    <div class="mt-4">
+        <button type="submit" class="btn btn-primary">Update</button>
+        <button type="button" class="btn btn-secondary ms-2" @onclick="NavigateBack">Cancel</button>
+    </div>
 </EditForm>
 
 @code {
     [Parameter] public int AlbumId { get; set; }
     private Album? album;
     private List<Artist> artists = new List<Artist>();
+    private List<Track> tracks = new List<Track>();
 
     protected override async Task OnInitializedAsync()
     {
-        album = await ChinookContext.Albums!.FindAsync(AlbumId);
+        // Load the album details
+        album = await ChinookContext.Albums!
+            .Include(a => a.Tracks) // Include tracks
+            .FirstOrDefaultAsync(a => a.AlbumId == AlbumId);
+
+        // Load the list of all artists
         artists = await ChinookContext.Artists!.ToListAsync();
+
+        // Load the tracks for the current album
+        if (album != null && album.Tracks != null)
+        {
+            tracks = album.Tracks.ToList();
+        }
     }
 
     private async Task HandleValidSubmit()
     {
         if (album != null)
         {
+            // Update the album details
+            album.Tracks = tracks; // Update tracks
             ChinookContext.Albums!.Update(album);
+
+            // Save changes to the database
             await ChinookContext.SaveChangesAsync();
             NavigationManager.NavigateTo("/");
         }
+    }
+
+    private void AddTrack()
+    {
+        tracks.Add(new Track { Name = "New Track", AlbumId = AlbumId });
+    }
+
+    private void RemoveTrack(Track track)
+    {
+        tracks.Remove(track);
+    }
+
+    private void NavigateBack()
+    {
+        NavigationManager.NavigateTo("/");
     }
 }
