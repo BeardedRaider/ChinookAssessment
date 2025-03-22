@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "CeJLg1srnf1yOkx2pAzIwLYxBs34C24DfXDmQZdDC48=",
+  "Hash": "hzgpMujKdO5vwiVxicJluWUyXZz20B45/fuTYaiHiyY=",
   "Source": "ChinookAlbumManager",
   "BasePath": "_content/ChinookAlbumManager",
   "Mode": "Default",
@@ -10,19 +10,19 @@
     {
       "Name": "ChinookAlbumManager\\wwwroot",
       "Source": "ChinookAlbumManager",
-      "ContentRoot": "C:\\Users\\Gamer\\Desktop\\ChinookAssessment\\CourseworkTwo\\Project\\ChinookAlbumManager\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\gamer\\Desktop\\ChinookAssessment\\CourseworkTwo\\Project\\ChinookAlbumManager\\wwwroot\\",
       "BasePath": "_content/ChinookAlbumManager",
       "Pattern": "**"
     }
   ],
   "Assets": [
     {
-      "Identity": "C:\\Users\\Gamer\\Desktop\\ChinookAssessment\\CourseworkTwo\\Project\\ChinookAlbumManager\\obj\\Debug\\net8.0\\scopedcss\\bundle\\ChinookAlbumManager.styles.css",
+      "Identity": "C:\\Users\\gamer\\Desktop\\ChinookAssessment\\CourseworkTwo\\Project\\ChinookAlbumManager\\obj\\Debug\\net8.0\\scopedcss\\bundle\\ChinookAlbumManager.styles.css",
       "SourceId": "ChinookAlbumManager",
       "SourceType": "Computed",
-      "ContentRoot": "C:\\Users\\Gamer\\Desktop\\ChinookAssessment\\CourseworkTwo\\Project\\ChinookAlbumManager\\obj\\Debug\\net8.0\\scopedcss\\bundle\\",
+      "ContentRoot": "C:\\Users\\gamer\\Desktop\\ChinookAssessment\\CourseworkTwo\\Project\\ChinookAlbumManager\\obj\\Debug\\net8.0\\scopedcss\\bundle\\",
       "BasePath": "_content/ChinookAlbumManager",
-      "RelativePath": "ChinookAlbumManager.styles.css",
+      "RelativePath": "ChinookAlbumManager#[.{fingerprint}]?.styles.css",
       "AssetKind": "All",
       "AssetMode": "CurrentProject",
       "AssetRole": "Primary",
@@ -31,17 +31,19 @@
       "RelatedAsset": "",
       "AssetTraitName": "ScopedCss",
       "AssetTraitValue": "ApplicationBundle",
+      "Fingerprint": "lpfosi2o1v",
+      "Integrity": "ianPvb3VprhwXWnJjn97fmU+l80TKfhXBhLzNT9fnuQ=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "C:\\Users\\Gamer\\Desktop\\ChinookAssessment\\CourseworkTwo\\Project\\ChinookAlbumManager\\obj\\Debug\\net8.0\\scopedcss\\bundle\\ChinookAlbumManager.styles.css"
+      "OriginalItemSpec": "C:\\Users\\gamer\\Desktop\\ChinookAssessment\\CourseworkTwo\\Project\\ChinookAlbumManager\\obj\\Debug\\net8.0\\scopedcss\\bundle\\ChinookAlbumManager.styles.css"
     },
     {
-      "Identity": "C:\\Users\\Gamer\\Desktop\\ChinookAssessment\\CourseworkTwo\\Project\\ChinookAlbumManager\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\ChinookAlbumManager.bundle.scp.css",
+      "Identity": "C:\\Users\\gamer\\Desktop\\ChinookAssessment\\CourseworkTwo\\Project\\ChinookAlbumManager\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\ChinookAlbumManager.bundle.scp.css",
       "SourceId": "ChinookAlbumManager",
       "SourceType": "Computed",
-      "ContentRoot": "C:\\Users\\Gamer\\Desktop\\ChinookAssessment\\CourseworkTwo\\Project\\ChinookAlbumManager\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\",
+      "ContentRoot": "C:\\Users\\gamer\\Desktop\\ChinookAssessment\\CourseworkTwo\\Project\\ChinookAlbumManager\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\",
       "BasePath": "_content/ChinookAlbumManager",
-      "RelativePath": "ChinookAlbumManager.bundle.scp.css",
+      "RelativePath": "ChinookAlbumManager#[.{fingerprint}]!.bundle.scp.css",
       "AssetKind": "All",
       "AssetMode": "Reference",
       "AssetRole": "Primary",
@@ -50,85 +52,589 @@
       "RelatedAsset": "",
       "AssetTraitName": "ScopedCss",
       "AssetTraitValue": "ProjectBundle",
+      "Fingerprint": "lpfosi2o1v",
+      "Integrity": "ianPvb3VprhwXWnJjn97fmU+l80TKfhXBhLzNT9fnuQ=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "C:\\Users\\Gamer\\Desktop\\ChinookAssessment\\CourseworkTwo\\Project\\ChinookAlbumManager\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\ChinookAlbumManager.bundle.scp.css"
+      "OriginalItemSpec": "C:\\Users\\gamer\\Desktop\\ChinookAssessment\\CourseworkTwo\\Project\\ChinookAlbumManager\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\ChinookAlbumManager.bundle.scp.css"
     },
     {
-      "Identity": "C:\\Users\\Gamer\\Desktop\\ChinookAssessment\\CourseworkTwo\\Project\\ChinookAlbumManager\\wwwroot\\app.css",
+      "Identity": "C:\\Users\\gamer\\Desktop\\ChinookAssessment\\CourseworkTwo\\Project\\ChinookAlbumManager\\wwwroot\\app.css",
       "SourceId": "ChinookAlbumManager",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Gamer\\Desktop\\ChinookAssessment\\CourseworkTwo\\Project\\ChinookAlbumManager\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\gamer\\Desktop\\ChinookAssessment\\CourseworkTwo\\Project\\ChinookAlbumManager\\wwwroot\\",
       "BasePath": "_content/ChinookAlbumManager",
-      "RelativePath": "app.css",
+      "RelativePath": "app#[.{fingerprint}]?.css",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
-      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeBehavior": "",
       "AssetMergeSource": "",
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
+      "Fingerprint": "da95v2qkru",
+      "Integrity": "u9qEka1auR7E3rd3/8/j8hkQdSOYj9bRJ4nYiFDR1sE=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\app.css"
     },
     {
-      "Identity": "C:\\Users\\Gamer\\Desktop\\ChinookAssessment\\CourseworkTwo\\Project\\ChinookAlbumManager\\wwwroot\\bootstrap\\bootstrap.min.css",
+      "Identity": "C:\\Users\\gamer\\Desktop\\ChinookAssessment\\CourseworkTwo\\Project\\ChinookAlbumManager\\wwwroot\\bootstrap\\bootstrap.min.css",
       "SourceId": "ChinookAlbumManager",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Gamer\\Desktop\\ChinookAssessment\\CourseworkTwo\\Project\\ChinookAlbumManager\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\gamer\\Desktop\\ChinookAssessment\\CourseworkTwo\\Project\\ChinookAlbumManager\\wwwroot\\",
       "BasePath": "_content/ChinookAlbumManager",
-      "RelativePath": "bootstrap/bootstrap.min.css",
+      "RelativePath": "bootstrap/bootstrap.min#[.{fingerprint}]?.css",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
-      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeBehavior": "",
       "AssetMergeSource": "",
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
+      "Fingerprint": "6gzpyzhau4",
+      "Integrity": "SiIVMGgRhdXjKSTIddX7mh9IbOXVcwQWc7/p4nS6D/0=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\bootstrap\\bootstrap.min.css"
     },
     {
-      "Identity": "C:\\Users\\Gamer\\Desktop\\ChinookAssessment\\CourseworkTwo\\Project\\ChinookAlbumManager\\wwwroot\\bootstrap\\bootstrap.min.css.map",
+      "Identity": "C:\\Users\\gamer\\Desktop\\ChinookAssessment\\CourseworkTwo\\Project\\ChinookAlbumManager\\wwwroot\\bootstrap\\bootstrap.min.css.map",
       "SourceId": "ChinookAlbumManager",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Gamer\\Desktop\\ChinookAssessment\\CourseworkTwo\\Project\\ChinookAlbumManager\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\gamer\\Desktop\\ChinookAssessment\\CourseworkTwo\\Project\\ChinookAlbumManager\\wwwroot\\",
       "BasePath": "_content/ChinookAlbumManager",
-      "RelativePath": "bootstrap/bootstrap.min.css.map",
+      "RelativePath": "bootstrap/bootstrap.min.css#[.{fingerprint}]?.map",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
-      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeBehavior": "",
       "AssetMergeSource": "",
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
+      "Fingerprint": "8inm30yfxf",
+      "Integrity": "gBwg2tmA0Ci2u54gMF1jNCVku6vznarkLS6D76htNNQ=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\bootstrap\\bootstrap.min.css.map"
     },
     {
-      "Identity": "C:\\Users\\Gamer\\Desktop\\ChinookAssessment\\CourseworkTwo\\Project\\ChinookAlbumManager\\wwwroot\\favicon.png",
+      "Identity": "C:\\Users\\gamer\\Desktop\\ChinookAssessment\\CourseworkTwo\\Project\\ChinookAlbumManager\\wwwroot\\favicon.png",
       "SourceId": "ChinookAlbumManager",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Gamer\\Desktop\\ChinookAssessment\\CourseworkTwo\\Project\\ChinookAlbumManager\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\gamer\\Desktop\\ChinookAssessment\\CourseworkTwo\\Project\\ChinookAlbumManager\\wwwroot\\",
       "BasePath": "_content/ChinookAlbumManager",
-      "RelativePath": "favicon.png",
+      "RelativePath": "favicon#[.{fingerprint}]?.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
-      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeBehavior": "",
       "AssetMergeSource": "",
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
+      "Fingerprint": "ifv42okdf2",
+      "Integrity": "4mWsDy3aHl36ZbGt8zByK7Pvd4kRUoNgTYzRnwmPHwg=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.png"
+    }
+  ],
+  "Endpoints": [
+    {
+      "Route": "app.css",
+      "AssetFile": "C:\\Users\\gamer\\Desktop\\ChinookAssessment\\CourseworkTwo\\Project\\ChinookAlbumManager\\wwwroot\\app.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2591"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"u9qEka1auR7E3rd3/8/j8hkQdSOYj9bRJ4nYiFDR1sE=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 19 Mar 2025 09:35:27 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-u9qEka1auR7E3rd3/8/j8hkQdSOYj9bRJ4nYiFDR1sE="
+        }
+      ]
+    },
+    {
+      "Route": "app.da95v2qkru.css",
+      "AssetFile": "C:\\Users\\gamer\\Desktop\\ChinookAssessment\\CourseworkTwo\\Project\\ChinookAlbumManager\\wwwroot\\app.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2591"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"u9qEka1auR7E3rd3/8/j8hkQdSOYj9bRJ4nYiFDR1sE=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 19 Mar 2025 09:35:27 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "da95v2qkru"
+        },
+        {
+          "Name": "label",
+          "Value": "app.css"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-u9qEka1auR7E3rd3/8/j8hkQdSOYj9bRJ4nYiFDR1sE="
+        }
+      ]
+    },
+    {
+      "Route": "bootstrap/bootstrap.min.6gzpyzhau4.css",
+      "AssetFile": "C:\\Users\\gamer\\Desktop\\ChinookAssessment\\CourseworkTwo\\Project\\ChinookAlbumManager\\wwwroot\\bootstrap\\bootstrap.min.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "162726"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"SiIVMGgRhdXjKSTIddX7mh9IbOXVcwQWc7/p4nS6D/0=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 19 Mar 2025 09:35:27 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "6gzpyzhau4"
+        },
+        {
+          "Name": "label",
+          "Value": "bootstrap/bootstrap.min.css"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-SiIVMGgRhdXjKSTIddX7mh9IbOXVcwQWc7/p4nS6D/0="
+        }
+      ]
+    },
+    {
+      "Route": "bootstrap/bootstrap.min.css",
+      "AssetFile": "C:\\Users\\gamer\\Desktop\\ChinookAssessment\\CourseworkTwo\\Project\\ChinookAlbumManager\\wwwroot\\bootstrap\\bootstrap.min.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "162726"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"SiIVMGgRhdXjKSTIddX7mh9IbOXVcwQWc7/p4nS6D/0=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 19 Mar 2025 09:35:27 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-SiIVMGgRhdXjKSTIddX7mh9IbOXVcwQWc7/p4nS6D/0="
+        }
+      ]
+    },
+    {
+      "Route": "bootstrap/bootstrap.min.css.8inm30yfxf.map",
+      "AssetFile": "C:\\Users\\gamer\\Desktop\\ChinookAssessment\\CourseworkTwo\\Project\\ChinookAlbumManager\\wwwroot\\bootstrap\\bootstrap.min.css.map",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "449111"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/plain"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"gBwg2tmA0Ci2u54gMF1jNCVku6vznarkLS6D76htNNQ=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 19 Mar 2025 09:35:27 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "8inm30yfxf"
+        },
+        {
+          "Name": "label",
+          "Value": "bootstrap/bootstrap.min.css.map"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-gBwg2tmA0Ci2u54gMF1jNCVku6vznarkLS6D76htNNQ="
+        }
+      ]
+    },
+    {
+      "Route": "bootstrap/bootstrap.min.css.map",
+      "AssetFile": "C:\\Users\\gamer\\Desktop\\ChinookAssessment\\CourseworkTwo\\Project\\ChinookAlbumManager\\wwwroot\\bootstrap\\bootstrap.min.css.map",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "449111"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/plain"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"gBwg2tmA0Ci2u54gMF1jNCVku6vznarkLS6D76htNNQ=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 19 Mar 2025 09:35:27 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-gBwg2tmA0Ci2u54gMF1jNCVku6vznarkLS6D76htNNQ="
+        }
+      ]
+    },
+    {
+      "Route": "ChinookAlbumManager.bundle.scp.css",
+      "AssetFile": "C:\\Users\\gamer\\Desktop\\ChinookAssessment\\CourseworkTwo\\Project\\ChinookAlbumManager\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\ChinookAlbumManager.bundle.scp.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "5921"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"ianPvb3VprhwXWnJjn97fmU+l80TKfhXBhLzNT9fnuQ=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 19 Mar 2025 09:35:27 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-ianPvb3VprhwXWnJjn97fmU+l80TKfhXBhLzNT9fnuQ="
+        }
+      ]
+    },
+    {
+      "Route": "ChinookAlbumManager.lpfosi2o1v.bundle.scp.css",
+      "AssetFile": "C:\\Users\\gamer\\Desktop\\ChinookAssessment\\CourseworkTwo\\Project\\ChinookAlbumManager\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\ChinookAlbumManager.bundle.scp.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "5921"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"ianPvb3VprhwXWnJjn97fmU+l80TKfhXBhLzNT9fnuQ=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 19 Mar 2025 09:35:27 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "lpfosi2o1v"
+        },
+        {
+          "Name": "label",
+          "Value": "ChinookAlbumManager.bundle.scp.css"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-ianPvb3VprhwXWnJjn97fmU+l80TKfhXBhLzNT9fnuQ="
+        }
+      ]
+    },
+    {
+      "Route": "ChinookAlbumManager.lpfosi2o1v.styles.css",
+      "AssetFile": "C:\\Users\\gamer\\Desktop\\ChinookAssessment\\CourseworkTwo\\Project\\ChinookAlbumManager\\obj\\Debug\\net8.0\\scopedcss\\bundle\\ChinookAlbumManager.styles.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "5921"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"ianPvb3VprhwXWnJjn97fmU+l80TKfhXBhLzNT9fnuQ=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 19 Mar 2025 09:35:27 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "lpfosi2o1v"
+        },
+        {
+          "Name": "label",
+          "Value": "ChinookAlbumManager.styles.css"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-ianPvb3VprhwXWnJjn97fmU+l80TKfhXBhLzNT9fnuQ="
+        }
+      ]
+    },
+    {
+      "Route": "ChinookAlbumManager.styles.css",
+      "AssetFile": "C:\\Users\\gamer\\Desktop\\ChinookAssessment\\CourseworkTwo\\Project\\ChinookAlbumManager\\obj\\Debug\\net8.0\\scopedcss\\bundle\\ChinookAlbumManager.styles.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "5921"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"ianPvb3VprhwXWnJjn97fmU+l80TKfhXBhLzNT9fnuQ=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 19 Mar 2025 09:35:27 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-ianPvb3VprhwXWnJjn97fmU+l80TKfhXBhLzNT9fnuQ="
+        }
+      ]
+    },
+    {
+      "Route": "favicon.ifv42okdf2.png",
+      "AssetFile": "C:\\Users\\gamer\\Desktop\\ChinookAssessment\\CourseworkTwo\\Project\\ChinookAlbumManager\\wwwroot\\favicon.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1148"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"4mWsDy3aHl36ZbGt8zByK7Pvd4kRUoNgTYzRnwmPHwg=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 19 Mar 2025 09:35:27 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "ifv42okdf2"
+        },
+        {
+          "Name": "label",
+          "Value": "favicon.png"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-4mWsDy3aHl36ZbGt8zByK7Pvd4kRUoNgTYzRnwmPHwg="
+        }
+      ]
+    },
+    {
+      "Route": "favicon.png",
+      "AssetFile": "C:\\Users\\gamer\\Desktop\\ChinookAssessment\\CourseworkTwo\\Project\\ChinookAlbumManager\\wwwroot\\favicon.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1148"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"4mWsDy3aHl36ZbGt8zByK7Pvd4kRUoNgTYzRnwmPHwg=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 19 Mar 2025 09:35:27 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-4mWsDy3aHl36ZbGt8zByK7Pvd4kRUoNgTYzRnwmPHwg="
+        }
+      ]
     }
   ]
 }

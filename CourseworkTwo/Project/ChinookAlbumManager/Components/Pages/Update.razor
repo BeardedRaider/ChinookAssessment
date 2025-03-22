@@ -1,0 +1,46 @@
+@page "/update/{AlbumId:int}"
+@using AlbumDetails
+@using Microsoft.EntityFrameworkCore
+@inject ChinookContext ChinookContext
+@inject NavigationManager NavigationManager
+
+<h3>Update Album</h3>
+
+<EditForm Model="@album" OnValidSubmit="@HandleValidSubmit">
+    <div>
+        <label for="Title">Title</label>
+        <InputText id="Title" @bind-Value="@album!.Title" />
+    </div>
+    <div>
+        <label for="ArtistId">Artist</label>
+        <InputSelect id="ArtistId" @bind-Value="@album!.ArtistId">
+            @foreach (var artist in artists)
+            {
+                <option value="@artist.ArtistId">@artist.Name</option>
+            }
+        </InputSelect>
+    </div>
+    <button type="submit" class="btn btn-primary">Update</button>
+</EditForm>
+
+@code {
+    [Parameter] public int AlbumId { get; set; }
+    private Album? album;
+    private List<Artist> artists = new List<Artist>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        album = await ChinookContext.Albums!.FindAsync(AlbumId);
+        artists = await ChinookContext.Artists!.ToListAsync();
+    }
+
+    private async Task HandleValidSubmit()
+    {
+        if (album != null)
+        {
+            ChinookContext.Albums!.Update(album);
+            await ChinookContext.SaveChangesAsync();
+            NavigationManager.NavigateTo("/");
+        }
+    }
+}

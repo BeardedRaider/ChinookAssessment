@@ -22,7 +22,11 @@
             <tr>
                 <td>@album.Title</td>
                 <td>@album.Artist.Name</td><!-- display the artist name -->
-                <td>&nbsp;</td>
+                <td>
+                    <button class="btn btn-primary" @onclick="() => NavigateToEdit(album.AlbumId)">
+                        Update
+                    </button>
+                </td>
             </tr>
         }
     </tbody>
@@ -30,9 +34,16 @@
 
 @code {
     private List<Album>? albums;
-        protected override async Task OnInitializedAsync()
+
+    protected override async Task OnInitializedAsync()
     {
         albums = await ChinookContext.Albums
             .Include(a => a.Artist) // Include related Artist entity
-            .ToListAsync();    }
+            .ToListAsync();
+    }
+
+    private void NavigateToEdit(int albumId)
+    {
+        NavigationManager.NavigateTo($"/update/{albumId}");
+    }
 }

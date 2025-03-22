@@ -3199,20 +3199,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Gamer\\.nuget\\packages\\": {}
+    "C:\\Users\\gamer\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Gamer\\Desktop\\ChinookAssessment\\CourseworkTwo\\Project\\ChinookAlbumManager\\ChinookAlbumManager.csproj",
+      "projectUniqueName": "C:\\Users\\gamer\\Desktop\\ChinookAssessment\\CourseworkTwo\\Project\\ChinookAlbumManager\\ChinookAlbumManager.csproj",
       "projectName": "ChinookAlbumManager",
-      "projectPath": "C:\\Users\\Gamer\\Desktop\\ChinookAssessment\\CourseworkTwo\\Project\\ChinookAlbumManager\\ChinookAlbumManager.csproj",
-      "packagesPath": "C:\\Users\\Gamer\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Gamer\\Desktop\\ChinookAssessment\\CourseworkTwo\\Project\\ChinookAlbumManager\\obj\\",
+      "projectPath": "C:\\Users\\gamer\\Desktop\\ChinookAssessment\\CourseworkTwo\\Project\\ChinookAlbumManager\\ChinookAlbumManager.csproj",
+      "packagesPath": "C:\\Users\\gamer\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\gamer\\Desktop\\ChinookAssessment\\CourseworkTwo\\Project\\ChinookAlbumManager\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Gamer\\Desktop\\NuGet.Config",
-        "C:\\Users\\Gamer\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\gamer\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
@@ -3235,7 +3234,8 @@
         "enableAudit": "true",
         "auditLevel": "low",
         "auditMode": "direct"
-      }
+      },
+      "SdkAnalysisLevel": "9.0.100"
     },
     "frameworks": {
       "net8.0": {
@@ -3275,7 +3275,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.407/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.102/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
