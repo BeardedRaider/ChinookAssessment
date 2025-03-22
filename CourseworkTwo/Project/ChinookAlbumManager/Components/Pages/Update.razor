@@ -67,7 +67,14 @@ protected override async Task OnInitializedAsync()
 
     Console.WriteLine($"Loaded album: {album.Title}, AlbumId: {album.AlbumId}");
     tracks = album.Tracks?.ToList() ?? new List<Track>();
-    artists = await ChinookContext.Artists.ToListAsync();
+    if (ChinookContext.Artists != null)
+    {
+        artists = await ChinookContext.Artists.ToListAsync();
+    }
+    else
+    {
+        Console.WriteLine("Error: Artists data is null.");
+    }
 }
 
 
@@ -78,7 +85,17 @@ private async Task HandleValidSubmit()
         Console.WriteLine($"Updating Album: {album.Title}, AlbumId={album.AlbumId}");
 
         // Save the album
-        ChinookContext.Albums.Update(album);
+        if (album != null)
+        {
+            if (ChinookContext.Albums != null)
+            {
+                ChinookContext.Albums.Update(album);
+            }
+            else
+            {
+                Console.WriteLine("Error: Albums data is null.");
+            }
+        }
 
         foreach (var track in tracks)
         {
@@ -91,12 +108,26 @@ private async Task HandleValidSubmit()
                 }
 
                 Console.WriteLine($"Adding new track: Name='{track.Name}', AlbumId={track.AlbumId}");
-                ChinookContext.Tracks.Add(track); // Add new track
+                if (ChinookContext.Tracks != null)
+                {
+                    ChinookContext.Tracks.Add(track); // Add new track
+                }
+                else
+                {
+                    Console.WriteLine("Error: Tracks data is null.");
+                }
             }
             else
             {
                 Console.WriteLine($"Updating track: Name='{track.Name}', TrackId={track.TrackId}, AlbumId={track.AlbumId}");
-                ChinookContext.Tracks.Update(track); // Update existing tracks
+                if (ChinookContext.Tracks != null)
+                {
+                    ChinookContext.Tracks.Update(track); // Update existing tracks
+                }
+                else
+                {
+                    Console.WriteLine("Error: Tracks data is null.");
+                }
             }
         }
 
@@ -139,7 +170,14 @@ private void AddTrack()
         tracks.Remove(track);
         if (track.TrackId != 0)
         {
-            ChinookContext.Tracks.Remove(track);
+            if (ChinookContext.Tracks != null)
+            {
+                ChinookContext.Tracks.Remove(track);
+            }
+            else
+            {
+                Console.WriteLine("Error: Tracks data is null.");
+            }
         }
     }
 
