@@ -1,0 +1,183 @@
+@page "/addalbum"
+@inject ChinookContext ChinookContext
+@inject NavigationManager NavigationManager
+@using AlbumDetails
+@using Microsoft.EntityFrameworkCore
+
+<PageTitle>Add New Album</PageTitle>
+
+<h1>Add New Album</h1>
+
+<EditForm Model="@NewAlbum" OnValidSubmit="@HandleSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <!-- Album Title -->
+    <div class="form-group">
+        <label for="AlbumTitle">Album Title</label>
+        <input id="AlbumTitle" class="form-control" @bind="NewAlbum.Title" />
+    </div>
+
+    <!-- Artist -->
+    <div class="form-group">
+        <label for="Artist">Artist</label>
+
+        <!-- Dropdown for Existing Artists -->
+        <select id="ArtistDropdown" class="form-control mb-2" @bind="SelectedArtistId">
+            <option value="">-- Select an Existing Artist --</option>
+            @if (Artists != null)
+            {
+                @foreach (var artist in Artists)
+                {
+                    <option value="@artist.ArtistId">@artist.Name</option>
+                }
+            }
+        </select>
+
+        <!-- Text Input for New Artist -->
+        <input id="ArtistInput" class="form-control" placeholder="Or enter a new artist" @bind="NewArtistName" />
+    </div>
+
+    <!-- Genre -->
+    <div class="form-group">
+        <label for="Genre">Genre</label>
+        <select id="Genre" class="form-control" @bind="SelectedGenreId">
+            <option value="">-- Select a Genre --</option>
+            @if (Genres != null)
+            {
+                @foreach (var genre in Genres)
+                {
+                    <option value="@genre.GenreId">@genre.Name</option>
+                }
+            }
+        </select>
+    </div>
+
+    <!-- Tracks -->
+    <h3>Tracks</h3>
+    <ul>
+        @foreach (var track in NewAlbum.Tracks)
+        {
+            <li>
+                <input class="form-control" @bind="track.Name" placeholder="Track Name" />
+                <button type="button" class="btn btn-danger btn-sm" @onclick="() => RemoveTrack(track)">
+                    Remove
+                </button>
+            </li>
+        }
+    </ul>
+    <button type="button" class="btn btn-secondary" @onclick="AddTrack">Add Track</button>
+
+    <!-- Submit and Navigation Buttons -->
+    <div class="form-group mt-4">
+        <button type="submit" class="btn btn-primary">Add Album to Database</button>
+        <button type="button" class="btn btn-secondary" @onclick="NavigateBack">Back</button>
+    </div>
+</EditForm>
+
+@code {
+    // Form models
+    private AlbumFormModel NewAlbum = new AlbumFormModel();
+    private List<Artist>? Artists; // List of artists from the database
+    private List<Genres>? Genres; // List of genres from the database
+    private int? SelectedArtistId; // Bound to the artist dropdown
+    private string NewArtistName = string.Empty; // Input for a new artist name
+    private int? SelectedGenreId; // Bound to the genre dropdown
+
+    protected override async Task OnInitializedAsync()
+    {
+        // Load existing artists and genres from the database
+        Artists = ChinookContext.Artists != null ? await ChinookContext.Artists.ToListAsync() : new List<Artist>();
+        Genres = ChinookContext.Genres != null ? await ChinookContext.Genres.ToListAsync() : new List<Genres>();
+    }
+
+    private async Task HandleSubmit()
+    {
+        // Step 1: Determine the artist
+        Artist artist;
+        if (SelectedArtistId != null && SelectedArtistId != 0)
+        {
+            // Use the selected existing artist
+            if (ChinookContext.Artists == null)
+            {
+                throw new InvalidOperationException("Artists collection is null.");
+            }
+            artist = await ChinookContext.Artists.FirstAsync(a => a.ArtistId == SelectedArtistId);
+        }
+        else
+        {
+            // Create a new artist
+            if (string.IsNullOrWhiteSpace(NewArtistName))
+            {
+                throw new InvalidOperationException("Please select an existing artist or enter a new artist name.");
+            }
+
+            artist = new Artist { Name = NewArtistName };
+            if (ChinookContext.Artists == null)
+            {
+                throw new InvalidOperationException("Artists collection is null.");
+            }
+            ChinookContext.Artists.Add(artist);
+            await ChinookContext.SaveChangesAsync(); // Save to generate ArtistId
+        }
+
+        // Step 2: Check if the selected genre exists
+        if (SelectedGenreId == null || ChinookContext.Genres == null || !await ChinookContext.Genres.AnyAsync(g => g.GenreId == SelectedGenreId))
+        {
+            throw new InvalidOperationException("Please select a valid genre from the dropdown.");
+        }
+
+        // Step 3: Create the new album
+        var album = new Album
+        {
+            Title = NewAlbum.Title,
+            ArtistId = artist.ArtistId,
+            Tracks = NewAlbum.Tracks.Select(t => new Track
+            {
+                Name = t.Name,
+                GenreId = SelectedGenreId.Value, // Use the selected GenreId
+                MediaTypeId = 1, // Default value, can be changed later
+                Composer = null, // Optional field
+                Milliseconds = 0, // Optional field
+                Bytes = 0, // Optional field
+                UnitPrice = 0.0M // Optional field
+            }).ToList()
+        };
+
+        if (ChinookContext.Albums == null)
+        {
+            throw new InvalidOperationException("Albums collection is null.");
+        }
+        ChinookContext.Albums.Add(album);
+        await ChinookContext.SaveChangesAsync(); // Save the album and tracks
+
+        // Step 4: Navigate back to home
+        NavigationManager.NavigateTo("/");
+    }
+
+    private void AddTrack()
+    {
+        NewAlbum.Tracks.Add(new TrackFormModel());
+    }
+
+    private void RemoveTrack(TrackFormModel track)
+    {
+        NewAlbum.Tracks.Remove(track);
+    }
+
+    private void NavigateBack()
+    {
+        NavigationManager.NavigateTo("/");
+    }
+
+    public class AlbumFormModel
+    {
+        public string Title { get; set; } = string.Empty;
+        public List<TrackFormModel> Tracks { get; set; } = new List<TrackFormModel>();
+    }
+
+    public class TrackFormModel
+    {
+        public string Name { get; set; } = string.Empty;
+    }
+}
