@@ -1,0 +1,68 @@
+@page "/details/{AlbumId:int}"
+@using Microsoft.EntityFrameworkCore
+@using AlbumDetails
+@inject ChinookContext ChinookContext
+@inject NavigationManager NavigationManager
+
+<PageTitle>Album Details</PageTitle>
+
+<h1>Album Details</h1>
+
+@if (AlbumDetails != null)
+{
+    <h2>@AlbumDetails.Title</h2>
+    <h3>Artist: @AlbumDetails.Artist?.Name</h3>
+
+    <ol>
+        @if (Tracks != null && Tracks.Count > 0)
+        {
+            foreach (var track in Tracks)
+            {
+                <li>@track.Name</li>
+            }
+        }
+        else
+        {
+            <p>No tracks found for this album.</p>
+        }
+    </ol>
+
+    <button class="btn btn-secondary" @onclick="NavigateBack">Back</button>
+}
+else
+{
+    <p>Loading album details...</p>
+}
+
+@code {
+    [Parameter]
+    public int AlbumId { get; set; }
+
+    private Album? AlbumDetails;
+    private List<Track>? Tracks;
+
+    protected override async Task OnInitializedAsync()
+    {
+        // Fetch album details based on AlbumId
+        if (ChinookContext.Albums != null)
+        {
+            AlbumDetails = await ChinookContext.Albums
+                .Include(a => a.Artist) // Include the Artist relationship
+                .FirstOrDefaultAsync(a => a.AlbumId == AlbumId);
+
+            // Fetch tracks for the album
+            if (ChinookContext.Tracks != null)
+            {
+                Tracks = await ChinookContext.Tracks
+                    .Where(t => t.AlbumId == AlbumId)
+                    .OrderBy(t => t.TrackId) // Display tracks in order
+                    .ToListAsync();
+            }
+        }
+    }
+
+    private void NavigateBack()
+    {
+        NavigationManager.NavigateTo("/");
+    }
+}

@@ -3,6 +3,7 @@
 @using Microsoft.EntityFrameworkCore
 @inject ChinookContext ChinookContext
 @inject NavigationManager NavigationManager
+@inject IJSRuntime JSRuntime
 
 <PageTitle>Home</PageTitle>
 
@@ -25,9 +26,19 @@
                     <td>@album.Title</td>
                     <td>@album.Artist?.Name</td><!-- display the artist name -->
                     <td>
-                        <button class="btn btn-primary" @onclick="() => NavigateToEdit(album.AlbumId)">
-                            Update
-                        </button>
+                        <div class="btn-group" role="group">
+                            <button class="btn btn-info" @onclick="() => NavigateToDetails(album.AlbumId)">
+                                Details
+                            </button>
+
+                            <button class="btn btn-primary" @onclick="() => NavigateToEdit(album.AlbumId)">
+                                Update
+                            </button>
+
+                            <button class="btn btn-danger" @onclick="() => ConfirmDelete(album.AlbumId)">
+                                Delete
+                            </button>
+                        </div>
                     </td>
                 </tr>
             }
@@ -47,9 +58,42 @@
                 .ToListAsync();
         }
     }
-
     private void NavigateToEdit(int albumId)
     {
         NavigationManager.NavigateTo($"/update/{albumId}");
+    }
+    private void NavigateToDetails(int albumId)
+    {
+        NavigationManager.NavigateTo($"/details/{albumId}");
+    }
+
+private async Task HandleDelete(int albumId)
+{
+    var albumToDelete = await ChinookContext.Albums.FindAsync(albumId);
+    if (albumToDelete != null)
+    {
+        ChinookContext.Albums.Remove(albumToDelete);
+        try
+        {
+            await ChinookContext.SaveChangesAsync();
+            albums = await ChinookContext.Albums.Include(a => a.Artist).ToListAsync(); // Refresh the album list
+        }
+        catch (DbUpdateException ex)
+        {
+            Console.WriteLine($"Error deleting album {albumId}: {ex.InnerException?.Message}");
+            throw;
+        }
+    }
+}
+
+
+
+    private async Task ConfirmDelete(int albumId)
+    {
+        var confirmed = await JSRuntime.InvokeAsync<bool>("confirm", "Are you sure you want to delete this album? This action cannot be undone.");
+        if (confirmed)
+        {
+            await HandleDelete(albumId);
+        }
     }
 }
