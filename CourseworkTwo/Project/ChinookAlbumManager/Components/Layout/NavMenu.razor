@@ -34,10 +34,19 @@
             </NavLink>
         </div>
     </nav>
+
+    <!-- Popup Notification Below Navigation Links -->
+    @if (ShowPopup)
+    {
+        <div class="alert alert-warning mt-3 mx-3" role="alert" style="z-index: 1050;">
+            Album not found!
+        </div>
+    }
 </div>
 
 @code {
     private string SearchQuery = string.Empty;
+    private bool ShowPopup = false; // Controls popup visibility
 
     private async Task PerformSearch()
     {
@@ -53,8 +62,18 @@
             }
             else
             {
-                // Optionally show an error message to the user
-                Console.WriteLine("Album not found.");
+                // Show popup if no album is found
+                ShowPopup = true;
+
+                // Hide popup after 2 seconds
+                var timer = new System.Timers.Timer(2000);
+                timer.Elapsed += (s, e) =>
+                {
+                    ShowPopup = false;
+                    InvokeAsync(StateHasChanged); // Update the UI
+                    timer.Dispose(); // Clean up the timer
+                };
+                timer.Start();
             }
         }
     }
