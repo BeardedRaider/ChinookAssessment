@@ -17,17 +17,20 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var album in albums)
+        @if (albums != null)
         {
-            <tr>
-                <td>@album.Title</td>
-                <td>@album.Artist.Name</td><!-- display the artist name -->
-                <td>
-                    <button class="btn btn-primary" @onclick="() => NavigateToEdit(album.AlbumId)">
-                        Update
-                    </button>
-                </td>
-            </tr>
+            foreach (var album in albums)
+            {
+                <tr>
+                    <td>@album.Title</td>
+                    <td>@album.Artist?.Name</td><!-- display the artist name -->
+                    <td>
+                        <button class="btn btn-primary" @onclick="() => NavigateToEdit(album.AlbumId)">
+                            Update
+                        </button>
+                    </td>
+                </tr>
+            }
         }
     </tbody>
 </table>
@@ -37,9 +40,12 @@
 
     protected override async Task OnInitializedAsync()
     {
-        albums = await ChinookContext.Albums
-            .Include(a => a.Artist) // Include related Artist entity
-            .ToListAsync();
+        if (ChinookContext.Albums != null)
+        {
+            albums = await ChinookContext.Albums
+                .Include(a => a.Artist) // Include related Artist entity
+                .ToListAsync();
+        }
     }
 
     private void NavigateToEdit(int albumId)
