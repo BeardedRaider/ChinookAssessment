@@ -53,57 +53,86 @@
     private List<Artist> artists = new List<Artist>();
     private List<Track> tracks = new List<Track>();
 
-    protected override async Task OnInitializedAsync()
+protected override async Task OnInitializedAsync()
+{
+    album = await ChinookContext.Albums!
+        .Include(a => a.Tracks) // Include tracks for the album
+        .FirstOrDefaultAsync(a => a.AlbumId == AlbumId);
+
+    if (album == null)
     {
-        // Load the album details
-        album = await ChinookContext.Albums!
-            .Include(a => a.Tracks) // Include tracks
-            .FirstOrDefaultAsync(a => a.AlbumId == AlbumId);
-
-        // Load the list of all artists
-        artists = await ChinookContext.Artists!.ToListAsync();
-
-        // Load the tracks for the current album
-        if (album != null && album.Tracks != null)
-        {
-            tracks = album.Tracks.ToList();
-        }
+        Console.WriteLine($"Error: Album with AlbumId={AlbumId} not found.");
+        return;
     }
 
-    private async Task HandleValidSubmit()
-    {
-        if (album != null)
-        {
-            // Update album details
-            ChinookContext.Albums.Update(album);
+    Console.WriteLine($"Loaded album: {album.Title}, AlbumId: {album.AlbumId}");
+    tracks = album.Tracks?.ToList() ?? new List<Track>();
+    artists = await ChinookContext.Artists.ToListAsync();
+}
 
-            // Persist changes for tracks
-            foreach (var track in tracks)
+
+private async Task HandleValidSubmit()
+{
+    if (album != null)
+    {
+        Console.WriteLine($"Updating Album: {album.Title}, AlbumId={album.AlbumId}");
+
+        // Save the album
+        ChinookContext.Albums.Update(album);
+
+        foreach (var track in tracks)
+        {
+            if (track.TrackId == 0) // New tracks
             {
-                if (track.TrackId == 0) // New tracks
+                if (track.AlbumId <= 0 || track.MediaTypeId <= 0 || track.GenreId <= 0)
                 {
-                    track.AlbumId = album.AlbumId; // Ensure AlbumId is set
-                    ChinookContext.Tracks.Add(track); // Add new track
+                    Console.WriteLine($"Error: Invalid foreign key(s) for track '{track.Name}' (AlbumId={track.AlbumId}, MediaTypeId={track.MediaTypeId}, GenreId={track.GenreId}). Skipping track.");
+                    continue; // Skip invalid tracks
                 }
-                else
-                {
-                    // Update existing tracks
-                    ChinookContext.Tracks.Update(track);
-                }
+
+                Console.WriteLine($"Adding new track: Name='{track.Name}', AlbumId={track.AlbumId}");
+                ChinookContext.Tracks.Add(track); // Add new track
             }
-
-            // Save changes to the database
-            await ChinookContext.SaveChangesAsync();
-
-            NavigationManager.NavigateTo("/");
+            else
+            {
+                Console.WriteLine($"Updating track: Name='{track.Name}', TrackId={track.TrackId}, AlbumId={track.AlbumId}");
+                ChinookContext.Tracks.Update(track); // Update existing tracks
+            }
         }
+
+        await ChinookContext.SaveChangesAsync(); // Commit changes to the database
+        Console.WriteLine("Changes saved successfully.");
+        NavigationManager.NavigateTo("/");
+    }
+}
+
+
+
+private void AddTrack()
+{
+    if (album == null || album.AlbumId <= 0)
+    {
+        Console.WriteLine("Error: Cannot add a track because the AlbumId is invalid or the album is null.");
+        return; // Prevent adding tracks if AlbumId is invalid
     }
 
-    private void AddTrack()
+    var newTrack = new Track
     {
-        var newTrack = new Track { Name = "", AlbumId = AlbumId };
-        tracks.Add(newTrack);
-    }
+        Name = "New Track",
+        AlbumId = album.AlbumId, // Explicitly assign the current album's AlbumId
+        MediaTypeId = 1, // Assign default valid MediaTypeId (adjust as needed)
+        GenreId = 1      // Assign default valid GenreId (adjust as needed)
+    };
+
+    tracks.Add(newTrack);
+
+    Console.WriteLine($"New track added: Name='{newTrack.Name}', AlbumId={newTrack.AlbumId}");
+}
+
+
+
+
+
 
     private void RemoveTrack(Track track)
     {

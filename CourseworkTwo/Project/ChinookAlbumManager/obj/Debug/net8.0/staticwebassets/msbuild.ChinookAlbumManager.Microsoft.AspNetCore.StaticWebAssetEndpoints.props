@@ -40,13 +40,13 @@
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\ChinookAlbumManager.lpfosi2o1v.bundle.scp.css'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
       <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-ianPvb3VprhwXWnJjn97fmU\u002Bl80TKfhXBhLzNT9fnuQ="}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"5921"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022ianPvb3VprhwXWnJjn97fmU\u002Bl80TKfhXBhLzNT9fnuQ=\u0022"},{"Name":"Last-Modified","Value":"Sat, 22 Mar 2025 22:48:46 GMT"}]]]></ResponseHeaders>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"5921"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022ianPvb3VprhwXWnJjn97fmU\u002Bl80TKfhXBhLzNT9fnuQ=\u0022"},{"Name":"Last-Modified","Value":"Sat, 22 Mar 2025 23:20:59 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/ChinookAlbumManager/ChinookAlbumManager.lpfosi2o1v.bundle.scp.css">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\ChinookAlbumManager.lpfosi2o1v.bundle.scp.css'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
       <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"lpfosi2o1v"},{"Name":"integrity","Value":"sha256-ianPvb3VprhwXWnJjn97fmU\u002Bl80TKfhXBhLzNT9fnuQ="},{"Name":"label","Value":"_content/ChinookAlbumManager/ChinookAlbumManager.bundle.scp.css"}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"5921"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022ianPvb3VprhwXWnJjn97fmU\u002Bl80TKfhXBhLzNT9fnuQ=\u0022"},{"Name":"Last-Modified","Value":"Sat, 22 Mar 2025 22:48:46 GMT"}]]]></ResponseHeaders>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"5921"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022ianPvb3VprhwXWnJjn97fmU\u002Bl80TKfhXBhLzNT9fnuQ=\u0022"},{"Name":"Last-Modified","Value":"Sat, 22 Mar 2025 23:20:59 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/ChinookAlbumManager/favicon.ifv42okdf2.png">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\favicon.png'))</AssetFile>
