@@ -1,4 +1,9 @@
-﻿<div class="top-row ps-3 navbar navbar-dark">
+﻿@using AlbumDetails
+@using Microsoft.EntityFrameworkCore
+@inject ChinookContext ChinookContext
+@inject NavigationManager NavigationManager
+
+<div class="top-row ps-3 navbar navbar-dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="">ChinookAlbumManager</a>
     </div>
@@ -8,8 +13,17 @@
 
 <div class="nav-scrollable" onclick="document.querySelector('.navbar-toggler').click()">
     <nav class="flex-column">
+        <!-- Search Input -->
         <div class="nav-item px-3">
-            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+            <form @onsubmit="PerformSearch">
+                <input type="text" class="form-control" placeholder="Search for Album" @bind="SearchQuery" />
+                <button type="submit" class="btn btn-primary mt-1">Search</button>
+            </form>
+        </div>
+
+        <!-- Navigation Links -->
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="/" Match="NavLinkMatch.All">
                 <span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span> Home
             </NavLink>
         </div>
@@ -22,3 +36,26 @@
     </nav>
 </div>
 
+@code {
+    private string SearchQuery = string.Empty;
+
+    private async Task PerformSearch()
+    {
+        if (!string.IsNullOrWhiteSpace(SearchQuery))
+        {
+            // Search for the album by title and get its AlbumId
+            var album = await ChinookContext.Albums
+                .FirstOrDefaultAsync(a => a.Title.ToLower() == SearchQuery.ToLower());
+
+            if (album != null)
+            {
+                NavigationManager.NavigateTo($"/details/{album.AlbumId}");
+            }
+            else
+            {
+                // Optionally show an error message to the user
+                Console.WriteLine("Album not found.");
+            }
+        }
+    }
+}
