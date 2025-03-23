@@ -9,6 +9,47 @@
 
 <h3>Welcome To Chinook</h3>
 <hr />
+
+<!-- Filter Section -->
+<div class="mb-3">
+    <!-- Album Title Filter -->
+    <label for="AlbumTitle" class="form-label">Album Title</label>
+    <InputText id="AlbumTitle" class="form-control" @bind-Value="filterAlbumTitle" />
+</div>
+
+<div class="mb-3">
+    <!-- Artist Name Filter -->
+    <label for="ArtistName" class="form-label">Artist Name</label>
+    <InputText id="ArtistName" class="form-control" @bind-Value="filterArtistName" />
+</div>
+
+<div class="mb-3">
+    <!-- Sort by Artist Name -->
+    <label for="SortArtist" class="form-label">Sort Artists</label>
+    <select id="SortArtist" class="form-select" @bind="sortByArtist">
+        <option value="">No Sorting</option>
+        <option value="A-Z">A-Z</option>
+        <option value="Z-A">Z-A</option>
+    </select>
+</div>
+
+<div class="mb-3">
+    <!-- Sort by Album Title -->
+    <label for="SortAlbum" class="form-label">Sort Albums</label>
+    <select id="SortAlbum" class="form-select" @bind="sortByAlbum">
+        <option value="">No Sorting</option>
+        <option value="A-Z">A-Z</option>
+        <option value="Z-A">Z-A</option>
+    </select>
+</div>
+
+<div class="mb-3">
+    <!-- Filter Button -->
+    <button class="btn btn-primary" @onclick="ApplyFilter">Filter</button>
+    <button class="btn btn-secondary ms-2" @onclick="ResetFilter">Reset</button>
+</div>
+
+<!-- Album Table -->
 <table class="table">
     <thead>
         <tr>
@@ -18,13 +59,13 @@
         </tr>
     </thead>
     <tbody>
-        @if (albums != null)
+        @if (albums != null && albums.Any())
         {
             foreach (var album in albums)
             {
                 <tr>
                     <td>@album.Title</td>
-                    <td>@album.Artist?.Name</td><!-- display the artist name -->
+                    <td>@album.Artist?.Name</td> <!-- display the artist name -->
                     <td>
                         <div class="btn-group" role="group">
                             <button class="btn btn-info" @onclick="() => NavigateToDetails(album.AlbumId)">
@@ -43,14 +84,25 @@
                 </tr>
             }
         }
+        else
+        {
+            <tr>
+                <td colspan="3">No albums match the filter criteria.</td>
+            </tr>
+        }
     </tbody>
 </table>
 
 @code {
     private List<Album>? albums;
+    private string filterAlbumTitle = string.Empty;
+    private string filterArtistName = string.Empty;
+    private string? sortByArtist; // Sorting option for artists
+    private string? sortByAlbum;  // Sorting option for albums
 
     protected override async Task OnInitializedAsync()
     {
+        // Load all albums initially
         if (ChinookContext.Albums != null)
         {
             albums = await ChinookContext.Albums
@@ -58,35 +110,90 @@
                 .ToListAsync();
         }
     }
+
+    private async Task ApplyFilter()
+    {
+        // Apply filters dynamically
+        var query = ChinookContext.Albums
+            .Include(a => a.Artist)
+            .AsQueryable();
+
+        // Filter by album title
+        if (!string.IsNullOrWhiteSpace(filterAlbumTitle))
+        {
+            query = query.Where(a => EF.Functions.Like(a.Title, $"%{filterAlbumTitle}%"));
+        }
+
+        // Filter by artist name
+        if (!string.IsNullOrWhiteSpace(filterArtistName))
+        {
+            query = query.Where(a => EF.Functions.Like(a.Artist!.Name, $"%{filterArtistName}%"));
+        }
+
+        // Apply sorting for artists
+        if (!string.IsNullOrWhiteSpace(sortByArtist))
+        {
+            query = sortByArtist == "A-Z"
+                ? query.OrderBy(a => a.Artist!.Name)
+                : query.OrderByDescending(a => a.Artist!.Name);
+        }
+
+        // Apply sorting for albums
+        if (!string.IsNullOrWhiteSpace(sortByAlbum))
+        {
+            query = sortByAlbum == "A-Z"
+                ? query.OrderBy(a => a.Title)
+                : query.OrderByDescending(a => a.Title);
+        }
+
+        // Execute query and update albums list
+        albums = await query.ToListAsync();
+    }
+
+    private async Task ResetFilter()
+    {
+        // Reset filters and sorting options, then reload all albums
+        filterAlbumTitle = string.Empty;
+        filterArtistName = string.Empty;
+        sortByArtist = null;
+        sortByAlbum = null;
+
+        if (ChinookContext.Albums != null)
+        {
+            albums = await ChinookContext.Albums
+                .Include(a => a.Artist) // Include related Artist entity
+                .ToListAsync();
+        }
+    }
+
     private void NavigateToEdit(int albumId)
     {
         NavigationManager.NavigateTo($"/update/{albumId}");
     }
+
     private void NavigateToDetails(int albumId)
     {
         NavigationManager.NavigateTo($"/details/{albumId}");
     }
 
-private async Task HandleDelete(int albumId)
-{
-    var albumToDelete = await ChinookContext.Albums.FindAsync(albumId);
-    if (albumToDelete != null)
+    private async Task HandleDelete(int albumId)
     {
-        ChinookContext.Albums.Remove(albumToDelete);
-        try
+        var albumToDelete = await ChinookContext.Albums.FindAsync(albumId);
+        if (albumToDelete != null)
         {
-            await ChinookContext.SaveChangesAsync();
-            albums = await ChinookContext.Albums.Include(a => a.Artist).ToListAsync(); // Refresh the album list
-        }
-        catch (DbUpdateException ex)
-        {
-            Console.WriteLine($"Error deleting album {albumId}: {ex.InnerException?.Message}");
-            throw;
+            ChinookContext.Albums.Remove(albumToDelete);
+            try
+            {
+                await ChinookContext.SaveChangesAsync();
+                albums = await ChinookContext.Albums.Include(a => a.Artist).ToListAsync(); // Refresh the album list
+            }
+            catch (DbUpdateException ex)
+            {
+                Console.WriteLine($"Error deleting album {albumId}: {ex.InnerException?.Message}");
+                throw;
+            }
         }
     }
-}
-
-
 
     private async Task ConfirmDelete(int albumId)
     {
