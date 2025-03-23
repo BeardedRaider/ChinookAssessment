@@ -7,7 +7,9 @@
 <PageTitle>Add New Album</PageTitle>
 
 <h1>Add New Album</h1>
-
+<div class="alert alert-danger" role="alert" style="display: @(ShowNotification ? "block" : "none")">
+    @ErrorMessage
+</div>
 <EditForm Model="@NewAlbum" OnValidSubmit="@HandleSubmit">
     <DataAnnotationsValidator />
     <ValidationSummary />
@@ -91,69 +93,104 @@
         Genres = ChinookContext.Genres != null ? await ChinookContext.Genres.ToListAsync() : new List<Genres>();
     }
 
-    private async Task HandleSubmit()
+private string ErrorMessage = string.Empty;
+private bool ShowNotification = false;
+
+private async Task HandleSubmit()
+{
+    // Validate Title
+    if (string.IsNullOrWhiteSpace(NewAlbum.Title))
     {
-        // Step 1: Determine the artist
-        Artist artist;
-        if (SelectedArtistId != null && SelectedArtistId != 0)
-        {
-            // Use the selected existing artist
-            if (ChinookContext.Artists == null)
-            {
-                throw new InvalidOperationException("Artists collection is null.");
-            }
-            artist = await ChinookContext.Artists.FirstAsync(a => a.ArtistId == SelectedArtistId);
-        }
-        else
-        {
-            // Create a new artist
-            if (string.IsNullOrWhiteSpace(NewArtistName))
-            {
-                throw new InvalidOperationException("Please select an existing artist or enter a new artist name.");
-            }
-
-            artist = new Artist { Name = NewArtistName };
-            if (ChinookContext.Artists == null)
-            {
-                throw new InvalidOperationException("Artists collection is null.");
-            }
-            ChinookContext.Artists.Add(artist);
-            await ChinookContext.SaveChangesAsync(); // Save to generate ArtistId
-        }
-
-        // Step 2: Check if the selected genre exists
-        if (SelectedGenreId == null || ChinookContext.Genres == null || !await ChinookContext.Genres.AnyAsync(g => g.GenreId == SelectedGenreId))
-        {
-            throw new InvalidOperationException("Please select a valid genre from the dropdown.");
-        }
-
-        // Step 3: Create the new album
-        var album = new Album
-        {
-            Title = NewAlbum.Title,
-            ArtistId = artist.ArtistId,
-            Tracks = NewAlbum.Tracks.Select(t => new Track
-            {
-                Name = t.Name,
-                GenreId = SelectedGenreId.Value, // Use the selected GenreId
-                MediaTypeId = 1, // Default value, can be changed later
-                Composer = null, // Optional field
-                Milliseconds = 0, // Optional field
-                Bytes = 0, // Optional field
-                UnitPrice = 0.0M // Optional field
-            }).ToList()
-        };
-
-        if (ChinookContext.Albums == null)
-        {
-            throw new InvalidOperationException("Albums collection is null.");
-        }
-        ChinookContext.Albums.Add(album);
-        await ChinookContext.SaveChangesAsync(); // Save the album and tracks
-
-        // Step 4: Navigate back to home
-        NavigationManager.NavigateTo("/");
+        ErrorMessage = "Album title is required.";
+        ShowNotification = true;
+        return;
     }
+
+    // Validate Artist
+    if ((SelectedArtistId == null || SelectedArtistId == 0) && string.IsNullOrWhiteSpace(NewArtistName))
+    {
+        ErrorMessage = "Please select an existing artist or enter a new artist name.";
+        ShowNotification = true;
+        return;
+    }
+
+    // Validate Genre
+    if (SelectedGenreId == null || SelectedGenreId == 0)
+    {
+        ErrorMessage = "Please select a valid genre.";
+        ShowNotification = true;
+        return;
+    }
+
+    // Validate Tracks
+    if (NewAlbum.Tracks == null || !NewAlbum.Tracks.Any())
+    {
+        ErrorMessage = "You must add at least one track.";
+        ShowNotification = true;
+        return;
+    }
+
+    ShowNotification = false; // Reset notification
+
+    // Step 1: Determine the artist
+    Artist artist;
+    if (SelectedArtistId != null && SelectedArtistId != 0)
+    {
+        // Use the selected existing artist
+        if (ChinookContext.Artists == null)
+        {
+            throw new InvalidOperationException("Artists collection is null.");
+        }
+        artist = await ChinookContext.Artists.FirstAsync(a => a.ArtistId == SelectedArtistId);
+    }
+    else
+    {
+        // Create a new artist
+        artist = new Artist { Name = NewArtistName };
+        if (ChinookContext.Artists == null)
+        {
+            throw new InvalidOperationException("Artists collection is null.");
+        }
+        ChinookContext.Artists.Add(artist);
+        await ChinookContext.SaveChangesAsync(); // Save to generate ArtistId
+    }
+
+    // Step 2: Check if the selected genre exists
+    if (SelectedGenreId == null || ChinookContext.Genres == null || !await ChinookContext.Genres.AnyAsync(g => g.GenreId == SelectedGenreId))
+    {
+        throw new InvalidOperationException("Please select a valid genre from the dropdown.");
+    }
+
+    // Step 3: Create the new album
+    var album = new Album
+    {
+        Title = NewAlbum.Title,
+        ArtistId = artist.ArtistId,
+        Tracks = NewAlbum.Tracks.Select(t => new Track
+        {
+            Name = t.Name,
+            GenreId = SelectedGenreId.Value, // Use the selected GenreId
+            MediaTypeId = 1, // Default value, can be changed later
+            Composer = null, // Optional field
+            Milliseconds = 0, // Optional field
+            Bytes = 0, // Optional field
+            UnitPrice = 0.0M // Optional field
+        }).ToList()
+    };
+
+    if (ChinookContext.Albums == null)
+    {
+        throw new InvalidOperationException("Albums collection is null.");
+    }
+    ChinookContext.Albums.Add(album);
+    await ChinookContext.SaveChangesAsync(); // Save the album and tracks
+
+    // Step 4: Navigate back to home
+    NavigationManager.NavigateTo("/");
+}
+
+
+
 
     private void AddTrack()
     {
