@@ -1,10 +1,10 @@
-@page "/details/{AlbumId:int}" // Define the route with a parameter for AlbumId
-@using Microsoft.EntityFrameworkCore // Import Entity Framework Core for database operations
-@using AlbumDetails // Import the AlbumDetails namespace (assumed to be defined elsewhere)
-@inject ChinookContext ChinookContext // Inject the database context
-@inject NavigationManager NavigationManager // Inject the navigation manager
+@page "/details/{AlbumId:int}"
+@using Microsoft.EntityFrameworkCore
+@using AlbumDetails
+@inject ChinookContext ChinookContext
+@inject NavigationManager NavigationManager
 
-<PageTitle>Album Details</PageTitle> // Set the page title
+<PageTitle>Album Details</PageTitle>
 
 <h1>Album Details</h1>
 
