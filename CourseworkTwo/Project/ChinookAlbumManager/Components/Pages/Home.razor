@@ -11,36 +11,38 @@
 <hr />
 
 <!-- Filter Section -->
-<div class="mb-3">
+<div class="row mb-3">
     <!-- Album Title Filter -->
-    <label for="AlbumTitle" class="form-label">Album Title</label>
-    <InputText id="AlbumTitle" class="form-control" @bind-Value="filterAlbumTitle" />
-</div>
+    <div class="col-md-3">
+        <label for="AlbumTitle" class="form-label">Album Title</label>
+        <InputText id="AlbumTitle" class="form-control" @bind-Value="filterAlbumTitle" />
+    </div>
 
-<div class="mb-3">
     <!-- Artist Name Filter -->
-    <label for="ArtistName" class="form-label">Artist Name</label>
-    <InputText id="ArtistName" class="form-control" @bind-Value="filterArtistName" />
-</div>
+    <div class="col-md-3">
+        <label for="ArtistName" class="form-label">Artist Name</label>
+        <InputText id="ArtistName" class="form-control" @bind-Value="filterArtistName" />
+    </div>
 
-<div class="mb-3">
     <!-- Sort by Artist Name -->
-    <label for="SortArtist" class="form-label">Sort Artists</label>
-    <select id="SortArtist" class="form-select" @bind="sortByArtist">
-        <option value="">No Sorting</option>
-        <option value="A-Z">A-Z</option>
-        <option value="Z-A">Z-A</option>
-    </select>
-</div>
+    <div class="col-md-3">
+        <label for="SortArtist" class="form-label">Sort Artists</label>
+        <select id="SortArtist" class="form-select" @bind="sortByArtist">
+            <option value="">No Sorting</option>
+            <option value="A-Z">A-Z</option>
+            <option value="Z-A">Z-A</option>
+        </select>
+    </div>
 
-<div class="mb-3">
     <!-- Sort by Album Title -->
-    <label for="SortAlbum" class="form-label">Sort Albums</label>
-    <select id="SortAlbum" class="form-select" @bind="sortByAlbum">
-        <option value="">No Sorting</option>
-        <option value="A-Z">A-Z</option>
-        <option value="Z-A">Z-A</option>
-    </select>
+    <div class="col-md-3">
+        <label for="SortAlbum" class="form-label">Sort Albums</label>
+        <select id="SortAlbum" class="form-select" @bind="sortByAlbum">
+            <option value="">No Sorting</option>
+            <option value="A-Z">A-Z</option>
+            <option value="Z-A">Z-A</option>
+        </select>
+    </div>
 </div>
 
 <div class="mb-3">
@@ -68,15 +70,15 @@
                     <td>@album.Artist?.Name</td> <!-- display the artist name -->
                     <td>
                         <div class="btn-group" role="group">
-                            <button class="btn btn-info" @onclick="() => NavigateToDetails(album.AlbumId)">
+                            <button class="btn btn-info me-2" @onclick="() => NavigateToDetails(album.AlbumId)">
                                 Details
                             </button>
 
-                            <button class="btn btn-primary" @onclick="() => NavigateToEdit(album.AlbumId)">
+                            <button class="btn btn-primary me-2" @onclick="() => NavigateToEdit(album.AlbumId)">
                                 Update
                             </button>
 
-                            <button class="btn btn-danger" @onclick="() => ConfirmDelete(album.AlbumId)">
+                            <button class="btn btn-danger me-2" @onclick="() => ConfirmDelete(album.AlbumId)">
                                 Delete
                             </button>
                         </div>
@@ -94,9 +96,9 @@
 </table>
 
 @code {
-    private List<Album>? albums;
-    private string filterAlbumTitle = string.Empty;
-    private string filterArtistName = string.Empty;
+    private List<Album>? albums; // List to store albums
+    private string filterAlbumTitle = string.Empty; // Filter for album title
+    private string filterArtistName = string.Empty; // Filter for artist name
     private string? sortByArtist; // Sorting option for artists
     private string? sortByAlbum;  // Sorting option for albums
 
@@ -114,9 +116,9 @@
     private async Task ApplyFilter()
     {
         // Apply filters dynamically
-        var query = ChinookContext.Albums
-            .Include(a => a.Artist)
-            .AsQueryable();
+        var query = ChinookContext.Albums != null
+            ? ChinookContext.Albums.Include(a => a.Artist).AsQueryable()
+            : Enumerable.Empty<Album>().AsQueryable();
 
         // Filter by album title
         if (!string.IsNullOrWhiteSpace(filterAlbumTitle))
@@ -168,27 +170,43 @@
 
     private void NavigateToEdit(int albumId)
     {
+        // Navigate to the edit page for the selected album
         NavigationManager.NavigateTo($"/update/{albumId}");
     }
 
     private void NavigateToDetails(int albumId)
     {
+        // Navigate to the details page for the selected album
         NavigationManager.NavigateTo($"/details/{albumId}");
     }
 
     private async Task HandleDelete(int albumId)
     {
-        var albumToDelete = await ChinookContext.Albums.FindAsync(albumId);
+        // Find the album to delete
+        var albumToDelete = ChinookContext.Albums != null ? await ChinookContext.Albums.FindAsync(albumId) : null;
         if (albumToDelete != null)
         {
-            ChinookContext.Albums.Remove(albumToDelete);
+            // Remove the album from the context
+            if (albumToDelete != null)
+            {
+                if (albumToDelete != null)
+                {
+                    ChinookContext.Albums.Remove(albumToDelete);
+                }
+            }
             try
             {
+                // Save changes to the database
                 await ChinookContext.SaveChangesAsync();
-                albums = await ChinookContext.Albums.Include(a => a.Artist).ToListAsync(); // Refresh the album list
+                // Refresh the album list
+                if (ChinookContext.Albums != null)
+                {
+                    albums = await ChinookContext.Albums.Include(a => a.Artist).ToListAsync();
+                }
             }
             catch (DbUpdateException ex)
             {
+                // Handle any errors that occur during the delete operation
                 Console.WriteLine($"Error deleting album {albumId}: {ex.InnerException?.Message}");
                 throw;
             }
@@ -197,9 +215,11 @@
 
     private async Task ConfirmDelete(int albumId)
     {
+        // Confirm the delete action with the user
         var confirmed = await JSRuntime.InvokeAsync<bool>("confirm", "Are you sure you want to delete this album? This action cannot be undone.");
         if (confirmed)
         {
+            // If confirmed, proceed with the delete operation
             await HandleDelete(albumId);
         }
     }

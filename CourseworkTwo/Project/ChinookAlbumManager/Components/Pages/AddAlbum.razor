@@ -77,7 +77,7 @@
 
 @code {
     // Form models
-    private AlbumFormModel NewAlbum = new AlbumFormModel();
+    private AlbumFormModel NewAlbum = new AlbumFormModel(); // Model for the new album
     private List<Artist>? Artists; // List of artists from the database
     private List<Genres>? Genres; // List of genres from the database
     private int? SelectedArtistId; // Bound to the artist dropdown
@@ -157,27 +157,30 @@
 
     private void AddTrack()
     {
+        // Add a new track to the album
         NewAlbum.Tracks.Add(new TrackFormModel());
     }
 
     private void RemoveTrack(TrackFormModel track)
     {
+        // Remove a track from the album
         NewAlbum.Tracks.Remove(track);
     }
 
     private void NavigateBack()
     {
+        // Navigate back to the home page
         NavigationManager.NavigateTo("/");
     }
 
     public class AlbumFormModel
     {
-        public string Title { get; set; } = string.Empty;
-        public List<TrackFormModel> Tracks { get; set; } = new List<TrackFormModel>();
+        public string Title { get; set; } = string.Empty; // Album title
+        public List<TrackFormModel> Tracks { get; set; } = new List<TrackFormModel>(); // List of tracks
     }
 
     public class TrackFormModel
     {
-        public string Name { get; set; } = string.Empty;
+        public string Name { get; set; } = string.Empty; // Track name
     }
 }

@@ -2,18 +2,28 @@
 <html lang="en">
 
 <head>
+    <!-- Specifies the character encoding for the HTML document -->
     <meta charset="utf-8" />
+    <!-- Sets the viewport to make the website look good on all devices -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Specifies the base URL for all relative URLs in the document -->
     <base href="/" />
+    <!-- Links to the Bootstrap CSS file for styling -->
     <link rel="stylesheet" href="bootstrap/bootstrap.min.css" />
+    <!-- Links to the custom app CSS file for additional styling -->
     <link rel="stylesheet" href="app.css" />
+    <!-- Links to the generated CSS file for the ChinookAlbumManager component -->
     <link rel="stylesheet" href="ChinookAlbumManager.styles.css" />
+    <!-- Links to the favicon for the website -->
     <link rel="icon" type="image/png" href="favicon.png" />
+    <!-- Placeholder for additional head content defined in other Razor components -->
     <HeadOutlet />
 </head>
 
 <body>
+    <!-- Defines the routing for the Blazor application with server-side rendering -->
     <Routes @rendermode="InteractiveServer" />
+    <!-- Links to the Blazor WebAssembly script -->
     <script src="_framework/blazor.web.js"></script>
 </body>
 

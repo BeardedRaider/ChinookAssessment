@@ -1,40 +1,40 @@
-@page "/albums"
-@using AlbumDetails;
-@using Microsoft.EntityFrameworkCore;
-@inject ChinookContext ChinookContext
+@page "/albums" // Defines the route for this Razor component
+@using AlbumDetails; // Imports the AlbumDetails namespace
+@using Microsoft.EntityFrameworkCore; // Imports the Entity Framework Core namespace
+@inject ChinookContext ChinookContext // Injects the ChinookContext service
 
-<h3>ChinookAlbumManager</h3>
+<h3>ChinookAlbumManager</h3> // Header for the page
 
 <ul>
-    @if (albums != null && albums.Any())
+    @if (albums != null && albums.Any()) // Checks if the albums list is not null and contains any elements
     {
-        @foreach (var album in albums)
+        @foreach (var album in albums) // Iterates through each album in the albums list
         {
-            <li>@album.Title (@album.ArtistId)</li>
+            <li>@album.Title (@album.ArtistId)</li> // Displays the album title and artist ID
         }
     }
     else
     {
-        <li>No albums found.</li>
+        <li>No albums found.</li> // Displays a message if no albums are found
     }
 </ul>
 
 @code {
-    private List<Album>? albums;
+    private List<Album>? albums; // Declares a private nullable list of Album objects
 
-    protected override async Task OnInitializedAsync()
+    protected override async Task OnInitializedAsync() // Asynchronous method that runs when the component is initialized
     {
         try
         {
-            albums = await ChinookContext.Albums!.ToListAsync();
-            if (albums == null || !albums.Any())
+            albums = await ChinookContext.Albums!.ToListAsync(); // Retrieves the list of albums from the database asynchronously
+            if (albums == null || !albums.Any()) // Checks if the albums list is null or empty
             {
-                Console.WriteLine("No albums found.");
+                Console.WriteLine("No albums found."); // Logs a message if no albums are found
             }
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Error retrieving albums: {ex.Message}");
+            Console.WriteLine($"Error retrieving albums: {ex.Message}"); // Logs an error message if an exception occurs
         }
     }
 }

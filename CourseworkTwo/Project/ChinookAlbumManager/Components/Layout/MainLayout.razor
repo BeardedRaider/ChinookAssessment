@@ -1,21 +1,22 @@
 ﻿@inherits LayoutComponentBase
 
+<!-- Main container for the layout -->
 <div class="page">
+    <!-- Sidebar section containing the navigation menu -->
     <div class="sidebar">
         <NavMenu />
     </div>
 
+    <!-- Main content area -->
     <main>
-        <div class="top-row px-4">
-            <a href="https://learn.microsoft.com/aspnet/core/" target="_blank">About</a>
-        </div>
-
+        <!-- Article section where the body content will be rendered -->
         <article class="content px-4">
             @Body
         </article>
     </main>
 </div>
 
+<!-- Error UI section to display unhandled errors -->
 <div id="blazor-error-ui">
     An unhandled error has occurred.
     <a href="" class="reload">Reload</a>

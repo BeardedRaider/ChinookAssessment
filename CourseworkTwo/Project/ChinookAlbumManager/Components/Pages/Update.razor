@@ -1,8 +1,8 @@
-@page "/update/{AlbumId:int}"
+@page "/update/{AlbumId:int}" // Define the route with AlbumId as a parameter
 @using AlbumDetails
 @using Microsoft.EntityFrameworkCore
-@inject ChinookContext ChinookContext
-@inject NavigationManager NavigationManager
+@inject ChinookContext ChinookContext // Inject the database context
+@inject NavigationManager NavigationManager // Inject the navigation manager
 
 <h3>Update Album</h3>
 
@@ -10,16 +10,16 @@
     <!-- Album Title -->
     <div class="mb-3">
         <label for="Title" class="form-label">Title</label>
-        <InputText id="Title" class="form-control" @bind-Value="@album!.Title" />
+        <InputText id="Title" class="form-control" @bind-Value="@album!.Title" /> 
     </div>
 
     <!-- Artist Selection -->
     <div class="mb-3">
         <label for="ArtistId" class="form-label">Artist</label>
-        <InputSelect id="ArtistId" class="form-select" @bind-Value="@album!.ArtistId">
+        <InputSelect id="ArtistId" class="form-select" @bind-Value="@album!.ArtistId"> 
             @foreach (var artist in artists)
             {
-                <option value="@artist.ArtistId">@artist.Name</option>
+                <option value="@artist.ArtistId">@artist.Name</option> // Populate dropdown with artists
             }
         </InputSelect>
     </div>
@@ -48,45 +48,43 @@
 </EditForm>
 
 @code {
-    [Parameter] public int AlbumId { get; set; }
-    private Album? album;
-    private List<Artist> artists = new List<Artist>();
-    private List<Track> tracks = new List<Track>();
+    [Parameter] public int AlbumId { get; set; } // Parameter to hold AlbumId from the route
+    private Album? album; // Album object to hold album details
+    private List<Artist> artists = new List<Artist>(); // List to hold artists
+    private List<Track> tracks = new List<Track>(); // List to hold tracks
 
-protected override async Task OnInitializedAsync()
-{
-    album = await ChinookContext.Albums!
-        .Include(a => a.Tracks) // Include tracks for the album
-        .FirstOrDefaultAsync(a => a.AlbumId == AlbumId);
-
-    if (album == null)
+    protected override async Task OnInitializedAsync()
     {
-        Console.WriteLine($"Error: Album with AlbumId={AlbumId} not found.");
-        return;
+        // Load album details including tracks
+        album = await ChinookContext.Albums!
+            .Include(a => a.Tracks)
+            .FirstOrDefaultAsync(a => a.AlbumId == AlbumId);
+
+        if (album == null)
+        {
+            Console.WriteLine($"Error: Album with AlbumId={AlbumId} not found.");
+            return;
+        }
+
+        Console.WriteLine($"Loaded album: {album.Title}, AlbumId: {album.AlbumId}");
+        tracks = album.Tracks?.ToList() ?? new List<Track>(); // Load tracks for the album
+        if (ChinookContext.Artists != null)
+        {
+            artists = await ChinookContext.Artists.ToListAsync(); // Load artists
+        }
+        else
+        {
+            Console.WriteLine("Error: Artists data is null.");
+        }
     }
 
-    Console.WriteLine($"Loaded album: {album.Title}, AlbumId: {album.AlbumId}");
-    tracks = album.Tracks?.ToList() ?? new List<Track>();
-    if (ChinookContext.Artists != null)
+    private async Task HandleValidSubmit()
     {
-        artists = await ChinookContext.Artists.ToListAsync();
-    }
-    else
-    {
-        Console.WriteLine("Error: Artists data is null.");
-    }
-}
-
-
-private async Task HandleValidSubmit()
-{
-    if (album != null)
-    {
-        Console.WriteLine($"Updating Album: {album.Title}, AlbumId={album.AlbumId}");
-
-        // Save the album
         if (album != null)
         {
+            Console.WriteLine($"Updating Album: {album.Title}, AlbumId={album.AlbumId}");
+
+            // Save the album
             if (ChinookContext.Albums != null)
             {
                 ChinookContext.Albums.Update(album);
@@ -95,84 +93,76 @@ private async Task HandleValidSubmit()
             {
                 Console.WriteLine("Error: Albums data is null.");
             }
-        }
 
-        foreach (var track in tracks)
+            foreach (var track in tracks)
+            {
+                if (track.TrackId == 0) // New tracks
+                {
+                    if (track.AlbumId <= 0 || track.MediaTypeId <= 0 || track.GenreId <= 0)
+                    {
+                        Console.WriteLine($"Error: Invalid foreign key(s) for track '{track.Name}' (AlbumId={track.AlbumId}, MediaTypeId={track.MediaTypeId}, GenreId={track.GenreId}). Skipping track.");
+                        continue; // Skip invalid tracks
+                    }
+
+                    Console.WriteLine($"Adding new track: Name='{track.Name}', AlbumId={track.AlbumId}");
+                    if (ChinookContext.Tracks != null)
+                    {
+                        ChinookContext.Tracks.Add(track); // Add new track
+                    }
+                    else
+                    {
+                        Console.WriteLine("Error: Tracks data is null.");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine($"Updating track: Name='{track.Name}', TrackId={track.TrackId}, AlbumId={track.AlbumId}");
+                    if (ChinookContext.Tracks != null)
+                    {
+                        ChinookContext.Tracks.Update(track); // Update existing tracks
+                    }
+                    else
+                    {
+                        Console.WriteLine("Error: Tracks data is null.");
+                    }
+                }
+            }
+
+            await ChinookContext.SaveChangesAsync(); // Commit changes to the database
+            Console.WriteLine("Changes saved successfully.");
+            NavigationManager.NavigateTo("/"); // Navigate back to the main page
+        }
+    }
+
+    private void AddTrack()
+    {
+        if (album == null || album.AlbumId <= 0)
         {
-            if (track.TrackId == 0) // New tracks
-            {
-                if (track.AlbumId <= 0 || track.MediaTypeId <= 0 || track.GenreId <= 0)
-                {
-                    Console.WriteLine($"Error: Invalid foreign key(s) for track '{track.Name}' (AlbumId={track.AlbumId}, MediaTypeId={track.MediaTypeId}, GenreId={track.GenreId}). Skipping track.");
-                    continue; // Skip invalid tracks
-                }
-
-                Console.WriteLine($"Adding new track: Name='{track.Name}', AlbumId={track.AlbumId}");
-                if (ChinookContext.Tracks != null)
-                {
-                    ChinookContext.Tracks.Add(track); // Add new track
-                }
-                else
-                {
-                    Console.WriteLine("Error: Tracks data is null.");
-                }
-            }
-            else
-            {
-                Console.WriteLine($"Updating track: Name='{track.Name}', TrackId={track.TrackId}, AlbumId={track.AlbumId}");
-                if (ChinookContext.Tracks != null)
-                {
-                    ChinookContext.Tracks.Update(track); // Update existing tracks
-                }
-                else
-                {
-                    Console.WriteLine("Error: Tracks data is null.");
-                }
-            }
+            Console.WriteLine("Error: Cannot add a track because the AlbumId is invalid or the album is null.");
+            return; // Prevent adding tracks if AlbumId is invalid
         }
 
-        await ChinookContext.SaveChangesAsync(); // Commit changes to the database
-        Console.WriteLine("Changes saved successfully.");
-        NavigationManager.NavigateTo("/");
+        var newTrack = new Track
+        {
+            Name = "New Track",
+            AlbumId = album.AlbumId, // Explicitly assign the current album's AlbumId
+            MediaTypeId = 1, // Assign default valid MediaTypeId (adjust as needed)
+            GenreId = 1      // Assign default valid GenreId (adjust as needed)
+        };
+
+        tracks.Add(newTrack); // Add new track to the list
+
+        Console.WriteLine($"New track added: Name='{newTrack.Name}', AlbumId={newTrack.AlbumId}");
     }
-}
-
-
-
-private void AddTrack()
-{
-    if (album == null || album.AlbumId <= 0)
-    {
-        Console.WriteLine("Error: Cannot add a track because the AlbumId is invalid or the album is null.");
-        return; // Prevent adding tracks if AlbumId is invalid
-    }
-
-    var newTrack = new Track
-    {
-        Name = "New Track",
-        AlbumId = album.AlbumId, // Explicitly assign the current album's AlbumId
-        MediaTypeId = 1, // Assign default valid MediaTypeId (adjust as needed)
-        GenreId = 1      // Assign default valid GenreId (adjust as needed)
-    };
-
-    tracks.Add(newTrack);
-
-    Console.WriteLine($"New track added: Name='{newTrack.Name}', AlbumId={newTrack.AlbumId}");
-}
-
-
-
-
-
 
     private void RemoveTrack(Track track)
     {
-        tracks.Remove(track);
+        tracks.Remove(track); // Remove track from the list
         if (track.TrackId != 0)
         {
             if (ChinookContext.Tracks != null)
             {
-                ChinookContext.Tracks.Remove(track);
+                ChinookContext.Tracks.Remove(track); // Remove track from the database if it exists
             }
             else
             {
@@ -183,6 +173,6 @@ private void AddTrack()
 
     private void NavigateBack()
     {
-        NavigationManager.NavigateTo("/");
+        NavigationManager.NavigateTo("/"); // Navigate back to the main page
     }
 }

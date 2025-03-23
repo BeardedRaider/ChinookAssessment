@@ -1,17 +1,26 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
+  <!-- Define the project using the .NET SDK for web applications -->
 
   <PropertyGroup>
+    <!-- Set the target framework to .NET 8.0 -->
     <TargetFramework>net8.0</TargetFramework>
+    <!-- Enable nullable reference types -->
     <Nullable>enable</Nullable>
+    <!-- Enable implicit using directives -->
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
   <ItemGroup>
+    <!-- Reference to the Entity Framework Core package -->
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.3" />
+    <!-- Reference to the Entity Framework Core Design package with additional settings -->
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.3">
+      <!-- Specify the assets to include -->
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <!-- Specify that the package should not be exposed to consuming projects -->
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
+    <!-- Reference to the Entity Framework Core SQLite provider package -->
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="9.0.3" />
   </ItemGroup>
 

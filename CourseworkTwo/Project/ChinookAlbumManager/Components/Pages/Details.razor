@@ -1,45 +1,45 @@
-@page "/details/{AlbumId:int}"
-@using Microsoft.EntityFrameworkCore
-@using AlbumDetails
-@inject ChinookContext ChinookContext
-@inject NavigationManager NavigationManager
+@page "/details/{AlbumId:int}" // Define the route with a parameter for AlbumId
+@using Microsoft.EntityFrameworkCore // Import Entity Framework Core for database operations
+@using AlbumDetails // Import the AlbumDetails namespace (assumed to be defined elsewhere)
+@inject ChinookContext ChinookContext // Inject the database context
+@inject NavigationManager NavigationManager // Inject the navigation manager
 
-<PageTitle>Album Details</PageTitle>
+<PageTitle>Album Details</PageTitle> // Set the page title
 
 <h1>Album Details</h1>
 
-@if (AlbumDetails != null)
+@if (AlbumDetails != null) // Check if album details have been loaded
 {
-    <h2>@AlbumDetails.Title</h2>
-    <h3>Artist: @AlbumDetails.Artist?.Name</h3>
+    <h2>@AlbumDetails.Title</h2> // Display the album title
+    <h3>Artist: @AlbumDetails.Artist?.Name</h3> // Display the artist name
 
     <ol>
-        @if (Tracks != null && Tracks.Count > 0)
+        @if (Tracks != null && Tracks.Count > 0) // Check if tracks have been loaded and are available
         {
-            foreach (var track in Tracks)
+            foreach (var track in Tracks) // Loop through each track and display its name
             {
                 <li>@track.Name</li>
             }
         }
         else
         {
-            <p>No tracks found for this album.</p>
+            <p>No tracks found for this album.</p> // Display a message if no tracks are found
         }
     </ol>
 
-    <button class="btn btn-secondary" @onclick="NavigateBack">Back</button>
+    <button class="btn btn-secondary" @onclick="NavigateBack">Back</button> // Button to navigate back to the previous page
 }
 else
 {
-    <p>Loading album details...</p>
+    <p>Loading album details...</p> // Display a loading message while album details are being fetched
 }
 
 @code {
     [Parameter]
-    public int AlbumId { get; set; }
+    public int AlbumId { get; set; } // Parameter to hold the AlbumId from the route
 
-    private Album? AlbumDetails;
-    private List<Track>? Tracks;
+    private Album? AlbumDetails; // Variable to hold the album details
+    private List<Track>? Tracks; // Variable to hold the list of tracks
 
     protected override async Task OnInitializedAsync()
     {
@@ -48,21 +48,21 @@ else
         {
             AlbumDetails = await ChinookContext.Albums
                 .Include(a => a.Artist) // Include the Artist relationship
-                .FirstOrDefaultAsync(a => a.AlbumId == AlbumId);
+                .FirstOrDefaultAsync(a => a.AlbumId == AlbumId); // Find the album by AlbumId
 
             // Fetch tracks for the album
             if (ChinookContext.Tracks != null)
             {
                 Tracks = await ChinookContext.Tracks
-                    .Where(t => t.AlbumId == AlbumId)
+                    .Where(t => t.AlbumId == AlbumId) // Filter tracks by AlbumId
                     .OrderBy(t => t.TrackId) // Display tracks in order
-                    .ToListAsync();
+                    .ToListAsync(); // Convert to list
             }
         }
     }
 
     private void NavigateBack()
     {
-        NavigationManager.NavigateTo("/");
+        NavigationManager.NavigateTo("/"); // Navigate back to the home page
     }
 }

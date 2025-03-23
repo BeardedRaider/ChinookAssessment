@@ -33,6 +33,11 @@
                 <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Add New Album
             </NavLink>
         </div>
+
+        <!-- Logo Section -->
+        <div class="text-center mt-4">
+            <img src="images/chinookTransparent.png" alt="Chinook Logo" class="img-fluid" style="max-width: 225px;" />
+        </div>
     </nav>
 
     <!-- Popup Notification Below Navigation Links -->
@@ -45,9 +50,13 @@
 </div>
 
 @code {
+    // Holds the search query entered by the user
     private string SearchQuery = string.Empty;
-    private bool ShowPopup = false; // Controls popup visibility
+    
+    // Controls the visibility of the popup notification
+    private bool ShowPopup = false;
 
+    // Method to perform the search when the form is submitted
     private async Task PerformSearch()
     {
         if (!string.IsNullOrWhiteSpace(SearchQuery))
@@ -58,6 +67,7 @@
 
             if (album != null)
             {
+                // Navigate to the album details page if the album is found
                 NavigationManager.NavigateTo($"/details/{album.AlbumId}");
             }
             else

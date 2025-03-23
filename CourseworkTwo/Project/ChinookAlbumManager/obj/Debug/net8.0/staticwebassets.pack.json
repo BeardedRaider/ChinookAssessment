@@ -21,6 +21,10 @@
       "PackagePath": "staticwebassets\\favicon.png"
     },
     {
+      "Id": "C:\\Users\\gamer\\Desktop\\ChinookAssessment\\CourseworkTwo\\Project\\ChinookAlbumManager\\wwwroot\\images\\chinookTransparent.png",
+      "PackagePath": "staticwebassets\\images\\chinookTransparent.png"
+    },
+    {
       "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.ChinookAlbumManager.Microsoft.AspNetCore.StaticWebAssetEndpoints.props",
       "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssetEndpoints.props"
     },
